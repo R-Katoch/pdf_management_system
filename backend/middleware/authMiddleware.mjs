@@ -1,6 +1,10 @@
 // Import necessary dependencies
 import jwt from 'jsonwebtoken';
 import User from '../models/User.mjs';
+import * as dotenv from 'dotenv';
+dotenv.config();
+
+const jwtTokenSecret = process.env.jwtTokenSecret;
 
 // Middleware function to authenticate user
 const authenticateUser = async (req, res, next) => {
@@ -13,7 +17,7 @@ const authenticateUser = async (req, res, next) => {
         }
 
         // Verify the token and decode its payload
-        const decoded = jwt.verify(token, 'pdf_management_system');
+        const decoded = jwt.verify(token, jwtTokenSecret);
 
         // Find the user associated with the decoded token
         const user = await User.findById(decoded.userId).exec();

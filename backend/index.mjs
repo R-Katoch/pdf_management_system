@@ -2,15 +2,21 @@ import express from 'express';
 import mongoose from 'mongoose';
 import admin from 'firebase-admin';
 import * as fs from 'fs';
+import * as dotenv from 'dotenv';
+dotenv.config();
+import serviceAccount from './serviceAccountKey.json' assert {type: "json"}
 import multer from 'multer';
 import cors from 'cors';
 import authRoutes from './routes/authRoutes.mjs';
 import fileRoutes from './routes/fileRoutes.mjs';
 import commentRoutes from './routes/commentRoutes.mjs';
+import { assert } from 'console';
 
-const serviceAccount = JSON.parse(fs.readFileSync('./serviceAccountKey.json', 'utf8'));
+// const serviceAccount = JSON.parse(fs.readFileSync('./serviceAccountKey.json', 'utf8'));
 const app = express();
 const PORT = 3000;
+const firebaseConnectionUrl = process.env.firebaseConnectionUrl;
+const mongodbConnectionUrl = process.env.mongoDbConnectionUrl;
 
 // Configure multer for file uploads
 const upload = multer({
@@ -29,11 +35,11 @@ app.use(upload.single('file')); // Specify the field name used for file uploads
 // Initialize Firebase Admin SDK
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    storageBucket: 'gs://pdf-management-system-18492.appspot.com', // Replace with your Firebase storage bucket URL
+    storageBucket: firebaseConnectionUrl, // Replace with your Firebase storage bucket URL
 });
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://RohitKatoch21:CwnpfE0MONl9Smem@pdf-management-system.clrphz5.mongodb.net/?retryWrites=true&w=majority', {
+mongoose.connect(mongodbConnectionUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     family: 4,

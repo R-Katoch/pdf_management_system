@@ -2,6 +2,10 @@
 import User from '../models/User.mjs';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import * as dotenv from 'dotenv';
+dotenv.config();
+
+const jwtTokenSecret = process.env.jwtTokenSecret;
 
 // Define the signup controller function
 const signupController = async (req, res) => {
@@ -53,8 +57,8 @@ const loginController = async (req, res) => {
         }
 
         // If the password matches, generate a JWT token
-        const token = jwt.sign({ userId: user._id }, 'pdf_management_system', { expiresIn: '24h' });
-        const refreshToken = jwt.sign({ userId: user._id }, 'pdf_management_system', { expiresIn: '100h' });
+        const token = jwt.sign({ userId: user._id }, jwtTokenSecret, { expiresIn: '24h' });
+        const refreshToken = jwt.sign({ userId: user._id }, jwtTokenSecret, { expiresIn: '100h' });
 
 
         res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001'); // Replace with your frontend's domain
