@@ -4,7 +4,7 @@ import admin from 'firebase-admin';
 import * as fs from 'fs';
 import * as dotenv from 'dotenv';
 dotenv.config();
-import serviceAccount from './serviceAccountKey.json' assert {type: "json"}
+// import serviceAccount from './serviceAccountKey.json' assert {type: "json"}
 import multer from 'multer';
 import cors from 'cors';
 import authRoutes from './routes/authRoutes.mjs';
@@ -12,7 +12,7 @@ import fileRoutes from './routes/fileRoutes.mjs';
 import commentRoutes from './routes/commentRoutes.mjs';
 import { assert } from 'console';
 
-// const serviceAccount = JSON.parse(fs.readFileSync('./serviceAccountKey.json', 'utf8'));
+const serviceAccount = JSON.parse(fs.readFileSync('./serviceAccountKey.json', 'utf8'));
 const app = express();
 const PORT = 3000;
 const firebaseConnectionUrl = process.env.firebaseConnectionUrl;
