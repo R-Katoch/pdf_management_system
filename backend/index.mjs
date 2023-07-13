@@ -1,13 +1,14 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import admin from 'firebase-admin';
-import serviceAccount from './serviceAccountKey.json' assert { type: "json" }; // Replace with the actual path to your Firebase service account key JSON file
+import * as fs from 'fs';
 import multer from 'multer';
 import cors from 'cors';
 import authRoutes from './routes/authRoutes.mjs';
 import fileRoutes from './routes/fileRoutes.mjs';
 import commentRoutes from './routes/commentRoutes.mjs';
 
+const serviceAccount = JSON.parse(fs.readFileSync('./serviceAccountKey.json', 'utf8'));
 const app = express();
 const PORT = 3000;
 
