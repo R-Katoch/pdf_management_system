@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import admin from 'firebase-admin';
-import serviceAccount from './serviceAccountKey.json' assert { type: "json" }; // Replace with the actual path to your Firebase service account key JSON file
+import serviceAccount from '/etc/secrets/serviceAccountKey.json' assert { type: "json" }; // Replace with the actual path to your Firebase service account key JSON file
 import multer from 'multer';
 import cors from 'cors';
 import authRoutes from './routes/authRoutes.mjs';
