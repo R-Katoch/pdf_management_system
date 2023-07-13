@@ -61,6 +61,6 @@ app.listen(PORT, () => {
 });
 
 // Export the Express app as a Cloud Function
-const api = functions.https.onRequest(app);
+const api = functions.onRequest(app);
 
 export { api };
