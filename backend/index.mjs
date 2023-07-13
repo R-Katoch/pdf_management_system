@@ -6,6 +6,7 @@ import multer from 'multer';
 import cors from 'cors';
 import authRoutes from './routes/authRoutes.mjs';
 import fileRoutes from './routes/fileRoutes.mjs';
+import commentRoutes from './routes/commentRoutes.mjs';
 
 const app = express();
 const PORT = 3000;
@@ -46,6 +47,7 @@ mongoose.connect('mongodb://localhost:27017/pdf_management_system', {
 // Register the routes
 app.use('/api/auth', authRoutes);
 app.use('/api/files', fileRoutes);
+app.use('/api/comments', commentRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

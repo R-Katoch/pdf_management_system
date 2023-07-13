@@ -31,7 +31,6 @@ const SignupLogin = ({ onSuccessfulLogin, onSuccessfulSignup }) => {
             // Check if the response is successful
             if (response.ok) {
                 // Call the onSuccessfulLogin callback with the user's email
-                localStorage.setItem("token".response.token);
                 onSuccessfulLogin(loginEmail);
                 toast('Login Successful');
             } else {

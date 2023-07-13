@@ -50,7 +50,7 @@ const uploadFile = async (req, res) => {
         });
         await newFile.save();
 
-        return res.status(201).json({ file: newFile });
+        return res.status(200).json({ file: newFile });
     } catch (error) {
         console.error('Error during file upload:', error);
         return res.status(500).json({ message: 'Server error' });
@@ -90,4 +90,19 @@ const getAllFiles = async (req, res) => {
     }
 };
 
-export { uploadFile, deleteFile, getAllFiles };
+const getFileById = async (req, res) => {
+    try {
+        const userId = req.user._id;
+        const fileId = req.params.id;
+
+        const file = await File.findById(fileId);
+        // file.filter(file => file._doc._id === fileId);
+
+        return res.status(200).json({ file });
+    } catch (error) {
+        console.error('Error retrieving file:', error);
+        return res.status(500).json({ message: 'Server Error' });
+    }
+}
+
+export { uploadFile, deleteFile, getAllFiles, getFileById };
