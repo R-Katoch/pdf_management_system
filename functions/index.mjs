@@ -7,7 +7,6 @@ import cors from 'cors';
 import authRoutes from './routes/authRoutes.mjs';
 import fileRoutes from './routes/fileRoutes.mjs';
 import commentRoutes from './routes/commentRoutes.mjs';
-import * as functions from 'firebase-functions';
 
 const app = express();
 const PORT = 3000;
@@ -60,7 +59,3 @@ app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
 
-// Export the Express app as a Cloud Function
-const api = functions.onRequest(app);
-
-export { api };
