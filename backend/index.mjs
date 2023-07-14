@@ -4,7 +4,7 @@ import admin from 'firebase-admin';
 import * as fs from 'fs';
 import * as dotenv from 'dotenv';
 dotenv.config();
-import serviceAccount from './serviceAccountKey.json' assert {type: "json"}
+// import serviceAccount from './serviceAccountKey.json' assert {type: "json"}
 import multer from 'multer';
 import cors from 'cors';
 import authRoutes from './routes/authRoutes.mjs';
@@ -12,11 +12,11 @@ import fileRoutes from './routes/fileRoutes.mjs';
 import commentRoutes from './routes/commentRoutes.mjs';
 import { assert } from 'console';
 
-// const serviceAccount = JSON.parse(fs.readFileSync('./serviceAccountKey.json', 'utf8'));
+const serviceAccount = JSON.parse(fs.readFileSync('./serviceAccountKey.json', 'utf8'));
 const app = express();
 const PORT = 3000;
-const firebaseConnectionUrl = 'gs://pdf-management-system-18492.appspot.com';
-const mongodbConnectionUrl = 'mongodb+srv://RohitKatoch21:CwnpfE0MONl9Smem@pdf-management-system.clrphz5.mongodb.net/?retryWrites=true&w=majority';
+const firebaseConnectionUrl = process.env.firebaseConnectionUrl;
+const mongodbConnectionUrl = process.env.mongoDbConnectionUrl;
 
 // Configure multer for file uploads
 const upload = multer({
@@ -26,6 +26,18 @@ const upload = multer({
     },
 });
 
+const whitelist = ["http://localhost:3000", "https://master--bright-faun-e47d0a.netlify.app/"]
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (!origin || whitelist.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error("Not allowed by CORS"))
+        }
+    },
+    credentials: true,
+}
+app.use(cors(corsOptions))
 app.use(cors());
 
 // Middleware
