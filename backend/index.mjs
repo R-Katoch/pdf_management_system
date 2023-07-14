@@ -26,18 +26,20 @@ const upload = multer({
     },
 });
 
-const whitelist = ["http://localhost:3000", "https://master--bright-faun-e47d0a.netlify.app", "http://localhost:3001"]
-const corsOptions = {
-    origin: function (origin, callback) {
-        if (!origin || whitelist.indexOf(origin) !== -1) {
-            callback(null, true)
-        } else {
-            callback(new Error("Not allowed by CORS"))
-        }
-    },
-    credentials: true,
-}
-app.use(cors(corsOptions));
+// const whitelist = ["http://localhost:3000", "https://master--bright-faun-e47d0a.netlify.app", "http://localhost:3001"]
+// const corsOptions = {
+//     origin: function (origin, callback) {
+//         if (!origin || whitelist.indexOf(origin) !== -1) {
+//             callback(null, true)
+//         } else {
+//             callback(new Error("Not allowed by CORS"))
+//         }
+//     },
+//     credentials: true,
+// }
+app.use(cors({
+    origin: "*",
+}));
 
 // Middleware
 app.use(express.json());
