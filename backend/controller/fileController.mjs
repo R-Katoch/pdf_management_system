@@ -1,5 +1,6 @@
 import admin from 'firebase-admin';
 import File from '../models/File.mjs';
+import { generateShortURL } from '../middleware/urlModifier.mjs';
 
 const uploadFile = async (req, res) => {
     try {
@@ -105,4 +106,25 @@ const getFileById = async (req, res) => {
     }
 }
 
-export { uploadFile, deleteFile, getAllFiles, getFileById };
+const shareFileById = async (req, res) => {
+    try {
+        const userToShareId = req.body.userId;
+        const fileId = req.params.id;
+        const file = await File.findById(fileId);
+
+        const newFile = new File({
+            name: file.name,
+            path: file.path,
+            size: file.size,
+            mimetype: file.mimetype,
+            user: userToShareId // Include the user information
+        });
+        await newFile.save();
+        return res.status(200).json({ file });
+    } catch (error) {
+        console.error('Error Sharing file', error);
+        return res.status(500).json({ message: 'Server Error' });
+    }
+}
+
+export { uploadFile, deleteFile, getAllFiles, getFileById, shareFileById };

@@ -1,6 +1,6 @@
 import express from 'express';
 import { authenticateUser } from '../middleware/authMiddleware.mjs';
-import { uploadFile, deleteFile, getAllFiles, getFileById } from '../controller/fileController.mjs';
+import { uploadFile, deleteFile, getAllFiles, getFileById, shareFileById } from '../controller/fileController.mjs';
 // import { auth } from 'firebase-admin';
 
 const router = express.Router();
@@ -12,6 +12,8 @@ router.delete('/delete/:id', authenticateUser, deleteFile);
 
 router.get('/all', authenticateUser, getAllFiles);
 
-router.get('/:id', authenticateUser, getFileById)
+router.get('/:id', authenticateUser, getFileById);
+
+router.post('/share/:id', authenticateUser, shareFileById);
 
 export default router;

@@ -4,7 +4,7 @@ import User from '../models/User.mjs';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-const jwtTokenSecret = process.env.jwtTokenSecret;
+const jwtTokenSecret = "pdf_management_system";
 
 // Middleware function to authenticate user
 const authenticateUser = async (req, res, next) => {

@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-const jwtTokenSecret = process.env.jwtTokenSecret;
+const jwtTokenSecret = "pdf_management_system";
 
 // Define the signup controller function
 const signupController = async (req, res) => {
