@@ -26,7 +26,7 @@ const upload = multer({
     },
 });
 
-const whitelist = ["http://localhost:3000", "https://master--bright-faun-e47d0a.netlify.app/"]
+const whitelist = ["http://localhost:3000", "https://master--bright-faun-e47d0a.netlify.app", "http://localhost:3001"]
 const corsOptions = {
     origin: function (origin, callback) {
         if (!origin || whitelist.indexOf(origin) !== -1) {
@@ -37,8 +37,7 @@ const corsOptions = {
     },
     credentials: true,
 }
-app.use(cors(corsOptions))
-app.use(cors());
+app.use(cors(corsOptions));
 
 // Middleware
 app.use(express.json());
